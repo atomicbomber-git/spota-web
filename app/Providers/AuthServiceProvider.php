@@ -52,5 +52,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-student','App\Policies\StudentPolicy@handle');
         Gate::define('manage-lecturer','App\Policies\LecturerPolicy@handle');
 
+        Gate::define('manage-announcement','App\Policies\AnnouncementPolicy@handle');
+        Gate::define('update-announcement','App\Policies\AnnouncementPolicy@update');
+        Gate::define('destroy-announcement','App\Policies\AnnouncementPolicy@destroy');
+
     }
 }

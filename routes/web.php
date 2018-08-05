@@ -60,6 +60,15 @@ Route::group(['middleware'=>['auth','can:active','can:admin'],'prefix'=>'admin']
         Route::post('prodi/{id}','MajorController@update')->name('major.update');
         Route::post('prodi/{id}/hapus','MajorController@destroy')->name('major.delete');
     });
+    Route::group(['prefix'=>'pengumuman'],function(){
+        Route::get('/','AnnouncementController@index')->name('announcement.index');
+        Route::get('buat','AnnouncementController@create')->name('announcement.create');
+        Route::get('edit/{id}','AnnouncementController@edit')->name('announcement.edit');
+        Route::post('buat','AnnouncementController@store')->name('announcement.store');
+        Route::post('edit/{id}','AnnouncementController@update')->name('announcement.update');
+        Route::post('announce/{id}','AnnouncementController@announce')->name('announcement.announce');
+        Route::post('hapus/{id}','AnnouncementController@destroy')->name('announcement.delete');
+    });
     Route::group(['prefix'=>'data','middleware'=>['can:manage-admin']],function(){
         Route::group(['prefix'=>'mahasiswa'],function(){
             Route::get('/','StudentController@index')->name('student.index');
