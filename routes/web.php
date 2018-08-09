@@ -38,6 +38,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware'=>['auth','can:student'],'prefix'=>'mahasiswa'],function(){
+    Route::get('upload-praoutline','PreoutlineController@create')->name('preoutline.create');
+    Route::post('upload-praoutline','PreoutlineController@store')->name('preoutline.store');
+});
+
 Route::group(['middleware'=>['auth','can:active','can:admin'],'prefix'=>'admin'],function(){
     Route::get('/','DashboardController@admin');
     Route::group(['prefix'=>'data','middleware'=>['can:manage-superadmin']],function(){
@@ -64,7 +69,7 @@ Route::group(['middleware'=>['auth','can:active','can:admin'],'prefix'=>'admin']
         Route::get('/','AnnouncementController@index')->name('announcement.index');
         Route::get('buat','AnnouncementController@create')->name('announcement.create');
         Route::get('edit/{id}','AnnouncementController@edit')->name('announcement.edit');
-        Route::post('buat','AnnouncementController@store')->name('announcement.store');
+        Route::post('tambah','AnnouncementController@store')->name('announcement.store');
         Route::post('edit/{id}','AnnouncementController@update')->name('announcement.update');
         Route::post('announce/{id}','AnnouncementController@announce')->name('announcement.announce');
         Route::post('hapus/{id}','AnnouncementController@destroy')->name('announcement.delete');
@@ -85,6 +90,13 @@ Route::group(['middleware'=>['auth','can:active','can:admin'],'prefix'=>'admin']
             Route::post('edit/{id}','LecturerController@update')->name('lecturer.update');
             Route::post('aktivasi/{id}','LecturerController@activate')->name('lecturer.activate');
             Route::post('hapus/{id}','LecturerController@destroy')->name('lecturer.delete');
+        });
+        Route::prefix('kelompok-keahlian')->group(function(){
+            Route::get('/','ExpertiseController@index')->name('expertise.index');
+            Route::post('/','ExpertiseController@store')->name('expertise.store');
+            Route::get('edit/{id}','ExpertiseController@edit')->name('expertise.edit');
+            Route::post('edit/{id}','ExpertiseController@update')->name('expertise.update');
+            Route::post('hapus/{id}','ExpertiseController@destroy')->name('expertise.delete');
         });
     });
 

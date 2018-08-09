@@ -70,6 +70,28 @@
         <li>
             <a class="sidebar-link" href="{{route('lecturer.index')}}">Data Dosen</a>
         </li>
+        <li>
+            <a class="sidebar-link" href="{{route('expertise.index')}}">Data Kelompok Keahlian</a>
+        </li>
+    </ul>
+</li>
+<li class="nav-item dropdown">
+    <a class="dropdown-toggle" href="javascript:void(0);">
+        <span class="icon-holder">
+            <i class="c-red-500 ti-announcement"></i> 
+        </span>
+        <span class="title">Pengumuman</span> 
+        <span class="arrow">
+            <i class="ti-angle-right"></i>
+        </span>
+    </a>
+    <ul class="dropdown-menu" style="display: none;">
+        <li>
+            <a class="sidebar-link" href="{{route('announcement.index')}}">Daftar Pengumuman</a>
+        </li>
+        <li>
+            <a class="sidebar-link" href="{{route('announcement.create')}}">Buat Pengumuman</a>
+        </li>
     </ul>
 </li>
 
