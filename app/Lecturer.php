@@ -56,7 +56,6 @@ class Lecturer extends Model
             $this->update([
                 'phone'             => $request->phone,
                 'position'          => $request->position,
-                'privileges'        => $request->privileges,
                 'picture'           => $picture
             ]);
 

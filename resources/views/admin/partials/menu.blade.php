@@ -94,6 +94,14 @@
         </li>
     </ul>
 </li>
+<li class="nav-item">
+    <a class='sidebar-link' href="{{route('configuration.index')}}" default>
+        <span class="icon-holder">
+            <i class="c-black-500 ti-settings"></i>
+        </span>
+        <span class="title">Pengaturan</span>
+    </a>
+</li>
 
 
 @endcan

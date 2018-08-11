@@ -32,6 +32,20 @@ Auth::routes();
 //     Route::get('/', 'DashboardController@index')->name('dash');
 //     Route::resource('users', 'UserController');
 // });
+
+
+Route::get('test',function(){
+    $arr = [3,2,5];
+    $parent = [1,2,3,4,5];
+
+    $result = function() use ($arr,$parent){
+        $count_arr = count($arr);
+        return count(array_intersect($parent,$arr)) == $count_arr ? 'true' : 'false';
+    }; 
+
+    echo $result();
+});
+
 Route::get('dosen','DashboardController@dosen')->name('dosen');
 Route::get('mahasiswa','DashboardController@mahasiswa')->name('mahasiswa');
 Route::get('/', function () {
@@ -65,6 +79,7 @@ Route::group(['middleware'=>['auth','can:active','can:admin'],'prefix'=>'admin']
         Route::post('prodi/{id}','MajorController@update')->name('major.update');
         Route::post('prodi/{id}/hapus','MajorController@destroy')->name('major.delete');
     });
+    
     Route::group(['prefix'=>'pengumuman'],function(){
         Route::get('/','AnnouncementController@index')->name('announcement.index');
         Route::get('buat','AnnouncementController@create')->name('announcement.create');
@@ -74,6 +89,13 @@ Route::group(['middleware'=>['auth','can:active','can:admin'],'prefix'=>'admin']
         Route::post('announce/{id}','AnnouncementController@announce')->name('announcement.announce');
         Route::post('hapus/{id}','AnnouncementController@destroy')->name('announcement.delete');
     });
+    
+    Route::prefix('pengaturan')->group(function(){
+        Route::get('/','ConfigurationController@index')->name('configuration.index');
+        Route::post('/','ConfigurationController@update')->name('configuration.update');
+        Route::post('/kaprodi','LecturerController@updateMajorLeader')->name('configuration.update-major');
+    });
+
     Route::group(['prefix'=>'data','middleware'=>['can:manage-admin']],function(){
         Route::group(['prefix'=>'mahasiswa'],function(){
             Route::get('/','StudentController@index')->name('student.index');

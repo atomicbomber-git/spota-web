@@ -24,4 +24,8 @@ class Major extends Model
         return $this->hasMany('App\User','major_id');
     }
 
+    public function configuration(){
+        return $this->hasOne('App\Configuration');
+    }
+
 }

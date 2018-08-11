@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+
 use App\Department;
 use App\Faculty;
 use App\Major;
+use App\Configuration;
 
 class MajorController extends Controller
 {
@@ -19,10 +23,15 @@ class MajorController extends Controller
             'faculty_id'       => 'required|exists:faculties,id',
             'name'             => 'required'
         ]);
-
+        
         $major = new Major;
-        $major->fill($request->all());
-        $major->save();
+        DB::transaction(function() use ($request,$major){
+            $major->fill($request->all());
+            $major->save();
+
+            $major->configuration()->save(new Configuration(['major_id'=>$major->id, 'current_semester' => '']));
+
+        },2);
 
         return redirect()->route('major.index')->with('success','Data berhasil ditambahkan .');
     }

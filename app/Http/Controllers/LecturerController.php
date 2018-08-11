@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+
 use App\User;
 use App\Lecturer;
 
@@ -66,9 +68,6 @@ class LecturerController extends Controller
             'position'          => 'required|string',
             'phone'             => 'required|numeric',
             'picture'           => 'nullable|image|max:1024|mimes:jpg,jpeg,png',
-            'privileges'        => [
-                'required',Rule::in(['K','D'])
-            ]
         ]);
         $lecturer->updateLecturer($request);
         return redirect()->back()->with('success','Akun berhasil diubah .');
@@ -82,5 +81,39 @@ class LecturerController extends Controller
         return redirect()->route('lecturer.index');
     }
 
+    public function updateMajorLeader(Request $request){
+        $request->validate([
+            'major_leaders'     => 'required|array'
+        ]);
+
+        $_major_leaders = DB::table('users')
+            ->join('lecturers','lecturers.user_id','=','users.id')
+            ->where('users.major_id',Auth::user()->major_id)
+            ->select('lecturers.id')->get();
+
+        $compare = function() use ($request,$_major_leaders){
+            $arr_major_leaders = $_major_leaders->pluck('id')->toArray();
+            $test = array_intersect($arr_major_leaders,$request->major_leaders);
+            $bool_request = count($request->major_leaders) == count($test);
+            return $bool_request;
+        };
+
+        if(!$compare()){
+            return redirect()->route('configuration.index')->with('errors',collect(['Lecturer(s) not found']));
+        }
+        $lecturers = DB::table('users')
+        ->join('lecturers','lecturers.user_id','=','users.id')
+        ->where('users.major_id',Auth::user()->major_id)->where('lecturers.privileges','K')->update(['privileges'=>'D']);
+        
+        foreach($request->major_leaders as $major_leader){
+            $lecturer = Lecturer::find($major_leader);
+            $lecturer->privileges = 'K';
+            $lecturer->save();
+            unset($lecturer);
+        }
+
+        return redirect()->route('configuration.index')->with('success','Akun kaprodi berhasil diperbaharui.');
+        
+    }
 
 }

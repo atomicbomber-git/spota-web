@@ -30,17 +30,12 @@
                 <div class="form-group">
                     <label for="">Pilih Dosen Pembimbing</label>
                     <div class="clearfix"></div>
-                    <select class="form-control w-75 select2 search-select" name="supervisor1">
-                        <option value=""></option>
-                    </select>
-                    <select class="form-control w-75 select2 search-select" name="supervisor2">
-                        <option value=""></option>
-                    </select>
-                    <select class="form-control w-75 select2 search-select" name="supervisor3">
-                        <option value=""></option>
-                    </select>
-                    <select class="form-control w-75 select2 search-select" name="supervisor4">
-                        <option value=""></option>
+                    <select class="form-control w-75 select2 search-select" name="supervisors[]" multiple="multiple">
+                        <option value="asd">asddsasdasdasdasdasdasdasdasdasdasd</option>
+                        <option value="asdsss">assdasdsdsssd</option>
+                        <option value="assssd">asasasdsdsdsdssd</option>
+                        <option value="asssssssd">aasdsdssasasdsdsdsdssd</option>
+                        <option value="assssasdd">asasasdsasddsdsdssd</option>
                     </select>
                 </div>
             </div>
@@ -61,7 +56,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Berkas Draft</label>
-                    <input type="file" name="" id="" class="form-control-file">
+                    <input type="file" name="file" class="form-control-file" accept=".pdf">
                 </div>
             </div>
             <button class="btn btn-primary">Submit</button>

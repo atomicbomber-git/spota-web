@@ -17,7 +17,8 @@ export default (function() {
     });
 
     $('.select2').select2({
-        width: '75%'
+        width: '75%',
+        maximumSelectionLength: 4,
     })
 
 }())

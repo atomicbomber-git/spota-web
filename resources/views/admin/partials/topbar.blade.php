@@ -13,7 +13,9 @@
                 </a>
             </li>
             <li class="search-input">
-                <input class="form-control" type="text" placeholder="Search...">
+                <form method="GET" action="{{route('student.index')}}">
+                    <input class="form-control" name="search" type="text" placeholder="Search...">
+                </form>
             </li>
         </ul>
         <ul class="nav-right">
