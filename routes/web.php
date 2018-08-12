@@ -35,15 +35,7 @@ Auth::routes();
 
 
 Route::get('test',function(){
-    $arr = [3,2,5];
-    $parent = [1,2,3,4,5];
-
-    $result = function() use ($arr,$parent){
-        $count_arr = count($arr);
-        return count(array_intersect($parent,$arr)) == $count_arr ? 'true' : 'false';
-    }; 
-
-    echo $result();
+    return Hash::make('password');
 });
 
 Route::get('dosen','DashboardController@dosen')->name('dosen');
