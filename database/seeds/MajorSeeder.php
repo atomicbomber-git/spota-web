@@ -17,7 +17,7 @@ class MajorSeeder extends Seeder
         $faculties = Faculty::all();
 
         foreach($faculties as $faculty){
-            factory(Major::class,10)->create()->each(function($major){
+            factory(Major::class,3)->create()->each(function($major){
                 $major->configuration()->save(factory(Configuration::class)->make());
             });
         }

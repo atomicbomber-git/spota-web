@@ -14,10 +14,21 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $majors = Major::all();
-        foreach($majors as $major){
-            factory(User::class,10)->create(['major_id' => $major->id])->each(function($user){
-                $user->admin()->save(factory(Admin::class)->make());
+        $major_ids = Major::select('id')->get();
+        
+        foreach($major_ids as $major_id){
+
+            // Generate users
+            DB::transaction(function() use($major_id) {
+                $users = factory(User::class, 5)->create([
+                    'major_id' => $major_id
+                ]);
+
+                $users->each(function($user) {
+                    factory(Admin::class)->create([
+                        'user_id' => $user->id
+                    ]);
+                });
             });
         }
     }

@@ -11,12 +11,12 @@ class Admin extends Model
     protected $fillable = [
         'phone',
         'position',
-        'major_id'
+        'user_id',
+        'privileges'
     ];
     public function user(){
         return $this->belongsTo('App\User');
     }
-
 
     public function updateAdmin(Request $request){
         DB::transaction(function () use ($request) {
