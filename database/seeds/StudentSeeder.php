@@ -21,6 +21,7 @@ class StudentSeeder extends Seeder
             // Generate users
             DB::transaction(function() use($major_id) {
                 $users = factory(User::class, 5)->create([
+                    'type' => 'M', // Student type
                     'major_id' => $major_id
                 ]);
 

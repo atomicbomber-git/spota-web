@@ -20,15 +20,14 @@ class AdminSeeder extends Seeder
 
             // Generate users
             DB::transaction(function() use($major_id) {
-                $users = factory(User::class, 5)->create([
+                $user = factory(User::class)->create([
+                    'type' => 'A', // Admin type
                     'major_id' => $major_id
                 ]);
 
-                $users->each(function($user) {
-                    factory(Admin::class)->create([
-                        'user_id' => $user->id
-                    ]);
-                });
+                $admin = factory(Admin::class)->create([
+                    'user_id' => $user->id,
+                ]);
             });
         }
     }

@@ -14,12 +14,55 @@ class MajorSeeder extends Seeder
      */
     public function run()
     {
+        $default_major_faculties = [
+            'Kedokteran' => [
+                'Ilmu Kedokteran',
+                'Keperawatan',
+                'Farmasi'
+            ],
+            'Ekonomi' => [
+                'Manajemen',
+                'Akuntansi',
+                'Ilmu Ekonomi'
+            ],
+            'Matematika dan IPA' => [
+                'Matematika',
+                'Kimia',
+                'Fisika'
+            ],
+            'Teknik' => [
+                'Informatika',
+                'Sipil',
+                'Elektro'
+            ],
+            'Pertanian' => [
+                'Peternakan',
+                'Pertanian'
+            ],
+            'Hukum' => [
+
+            ],
+            'Keguruan dan Ilmu Pendidikan' => [
+
+            ],
+            'Kehutanan' => [
+
+            ],
+            'Ilmu Sosial dan Ilmu Politik' => [
+                
+            ]
+        ];
+
         $faculties = Faculty::all();
 
         foreach($faculties as $faculty){
-            factory(Major::class,3)->create()->each(function($major){
-                $major->configuration()->save(factory(Configuration::class)->make());
-            });
+            if (isset($default_major_faculties[$faculty->name])) {
+                foreach ($default_major_faculties[$faculty->name] as $major_name) {
+                    factory(Major::class)->create([
+                        'name' => $major_name
+                    ]);
+                } 
+            }
         }
     }
 }

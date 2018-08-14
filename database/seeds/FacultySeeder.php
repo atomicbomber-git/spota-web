@@ -11,6 +11,16 @@ class FacultySeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Faculty::class,15)->create();
+        $default_faculties = [
+            'Kedokteran', 'Ekonomi', 'Matematika dan IPA', 'Teknik',
+            'Pertanian', 'Hukum', 'Keguruan dan Ilmu Pendidikan', 'Kehutanan',
+            'Ilmu Sosial dan Ilmu Politik'
+        ];
+
+        foreach ($default_faculties as $faculty) {
+            factory(App\Faculty::class)->create([
+                'name' => $faculty
+            ]);
+        }
     }
 }
