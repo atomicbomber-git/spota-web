@@ -37,11 +37,6 @@ class DisplayAdminEmails extends Command
      */
     public function handle()
     {
-        $this->line(
-            \App\Lecturer::all()->count()
-        );
-        return;
-
         \App\Admin::query()
             ->with(['user' => function ($query) {
                 $query->where('users.type', 'A');
